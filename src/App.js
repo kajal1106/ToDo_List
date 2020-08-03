@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import {BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from  './components/layout/Header';
 import Todos from './components/Todos.js';
 import AddTodo from './components/AddTodo.js';
+import About from './components/pages/About';
 import {v4 as uuid}  from 'uuid';
 //for generating random ids after installing uuid in terminal
-
-
 import './App.css';
 
 class App extends Component {
@@ -61,14 +61,21 @@ addTodo = (title) => {
   render(){
     // console.log(this.state.todos)
   return (
-    <div className="App">
-      <div className="container">
-        <Header />
-        < AddTodo addTodo={this.addTodo} />
-        <Todos todos={this.state.todos} markComplete={this.markComplete}
-        delTodo={this.delTodo} />
-       </div>
-    </div>
+    <Router>
+      <div className="App">
+        <div className="container">
+          <Header />
+          <Route exact path="/" render= {props => ( 
+            <React.Fragment>
+              <AddTodo addTodo={this.addTodo} />
+              <Todos todos={this.state.todos} markComplete={this.markComplete}
+              delTodo={this.delTodo} />
+            </React.Fragment>
+          ) } />
+         <Route path="/about" component={About} />
+        </div>
+      </div>
+    </Router>
   );
 }
 }
