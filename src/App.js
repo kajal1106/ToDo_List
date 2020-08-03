@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Header from  './components/layout/Header';
 import Todos from './components/Todos.js';
 
 import './App.css';
@@ -24,6 +25,7 @@ class App extends Component {
     ]
   }
 
+  //Toggle complete
 markComplete = (id) => {
   this.setState({ todos: this.state.todos.map(todo =>{
     if(todo.id === id){
@@ -33,11 +35,19 @@ markComplete = (id) => {
   }) });
 }
 
+// Delete Todo
+delTodo = (id) =>{
+  this.setState({ todos: [...this.state.todos.filter(todo => todo.id
+    !== id)] });
+}
+
   render(){
-    console.log(this.state.todos)
+    // console.log(this.state.todos)
   return (
     <div className="App">
-      <Todos todos={this.state.todos} markComplete={this.markComplete}/>
+      <Header />
+      <Todos todos={this.state.todos} markComplete={this.markComplete}
+       delTodo={this.delTodo} />
     </div>
   );
 }
