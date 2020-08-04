@@ -1,7 +1,7 @@
 >This is the TodoList app v1.0.0. This app is made using reate JS and react router by &nbsp;Kajal Singh to showcase her webdevelopment skills.
-        
+> https://todolistappreactjs.netlify.app/     
 
-In the project directory, you can run:
+>In the project directory, you can run:
 
 ### `npm start`
 
