@@ -4,14 +4,16 @@ import Header from  './components/layout/Header';
 import Todos from './components/Todos.js';
 import AddTodo from './components/AddTodo.js';
 import About from './components/pages/About';
-import {v4 as uuid}  from 'uuid';
+// import {v4 as uuid}  from 'uuid';
 //for generating random ids after installing uuid in terminal
+import axios from 'axios';
+
 import './App.css';
 
 class App extends Component {
   state ={
-    todos: [
-      {
+    todos: []
+      /*{
         // doing this will generate random ids
         id: uuid(), 
         title: 'Breaksfast',
@@ -27,7 +29,13 @@ class App extends Component {
         title: 'Laundry',
         completed: false
       }
-    ]
+      */
+  }
+
+  componentDidMount(){
+    //api to generate to do list from jsonplaceholder after install axios
+    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
+    .then(res => this.setState({ todos: res.data}))
   }
 
   //Toggle complete
@@ -42,20 +50,25 @@ markComplete = (id) => {
 
 // Delete Todo
 delTodo = (id) =>{
-  this.setState({ todos: [...this.state.todos.filter(todo => todo.id
-    !== id)] });
-}
+
+  axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+  .then(res => this.setState({ todos: [...this.state.todos.filter(todo => todo.id
+    !== id)] }));
+  
+  }
 
 
 //Add Todo
 addTodo = (title) => {
   // console.log(title)
-  const newTodo = {
-    id: uuid(),
-    title,
-    completed: false
-  }
-  this.setState({ todos: [...this.state.todos, newTodo] });
+   axios.post('https://jsonplaceholder.typicode.com/todos',
+   {
+     title,
+     completed:false
+   })
+     .then(res =>   this.setState({ todos: 
+      [...this.state.todos, res.data] }));
+
 }
 
   render(){
