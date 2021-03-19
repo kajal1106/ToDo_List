@@ -1,1 +1,1 @@
-## React Todo List Web App
+## React Todo List
